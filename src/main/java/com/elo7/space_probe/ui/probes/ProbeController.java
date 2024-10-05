@@ -1,5 +1,6 @@
 package com.elo7.space_probe.ui.probes;
 
+import com.elo7.space_probe.app.exceptions.ResourceNotFoundException;
 import com.elo7.space_probe.app.planets.FindPlanetService;
 import com.elo7.space_probe.app.probes.CreateProbeService;
 import com.elo7.space_probe.app.probes.FindAllProbeService;
@@ -67,9 +68,9 @@ class ProbeController {
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/{id}/move")
     ProbeDTO move(@PathVariable("id") Integer id, @RequestBody ProbeMoveDTO probeMoveDTO) {
-        Optional<Probe> probe = findProbeService.execute(id);
+        Probe probe = findProbeService.execute(id).orElseThrow(() -> new ResourceNotFoundException("Sonda não encontrada."));
         moveProbeService.execute(probe, probeMoveDTO.commands());
-        return probe.map(probeToDtoConverter::convert).orElse(null);
+        return probeToDtoConverter.convert(probe);
     }
 
 }
