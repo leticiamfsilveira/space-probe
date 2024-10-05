@@ -2,6 +2,7 @@ package com.elo7.space_probe.domain;
 
 import com.elo7.space_probe.app.exceptions.InvalidMovementException;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Optional;
 
@@ -38,10 +39,10 @@ public class Probe {
         this.planet = planet;
     }
 
-    public Probe(String name, Integer x, Integer y, Orientation orientation, Planet planet) {
+    public Probe(String name, Integer x, Integer y, String orientation, Planet planet) {
         this.name = name;
         this.position = new Position(x, y);
-        this.orientation = orientation;
+        this.orientation = Orientation.valueOf(orientation);
         this.planet = planet;
     }
 
@@ -63,6 +64,10 @@ public class Probe {
 
     public Integer getPlanetId() {
         return planet.getId();
+    }
+
+    public String getOrientation() {
+        return orientation.toString();
     }
 
     /**
