@@ -1,7 +1,5 @@
 package com.elo7.space_probe.app.probes;
 
-import com.elo7.space_probe.app.exceptions.ResourceNotFoundException;
-import com.elo7.space_probe.domain.Planet;
 import com.elo7.space_probe.domain.Probe;
 import com.elo7.space_probe.domain.Probes;
 import org.springframework.stereotype.Service;

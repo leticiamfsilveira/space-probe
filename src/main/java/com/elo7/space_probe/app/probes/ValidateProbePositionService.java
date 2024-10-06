@@ -9,6 +9,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
+/**
+ * Serviço responsável pela validação de posição das sondas dentro de um planeta.
+ * Centraliza as regras de negócio para garantir que as sondas respeitem os limites dos planetas
+ * e que não haja colisão entre sondas no mesmo espaço.
+ */
 @Service
 public class ValidateProbePositionService {
     private final Probes probes;
@@ -19,6 +24,14 @@ public class ValidateProbePositionService {
         this.planets = planets;
     }
 
+    /**
+     * Executa a validação de posição de uma sonda no planeta, verificando se a posição está
+     * dentro dos limites e se não há outras sondas no mesmo local.
+     * Caso alguma condição não seja atendida, lança uma exceção para indicar o erro.
+     * @param x         Coordenada X da posição que a sonda deseja ocupar.
+     * @param y         Coordenada Y da posição que a sonda deseja ocupar.
+     *  @param planetId  ID do planeta no qual a sonda está se movimentando.
+     */
     public void execute(Integer x, Integer y, Integer planetId)  {
         Planet planet = planets.findById(planetId).orElseThrow(() -> new ResourceNotFoundException("Planeta não encontrado"));
 
